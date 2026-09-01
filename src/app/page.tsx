@@ -1,8 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import { Languages, RotateCcw, Play, Pause } from "lucide-react";
+import { Languages, RotateCcw, Play, Pause, Gamepad2 } from "lucide-react";
 import { changeLocale, getLocalePreference, normalizeLocale, type LocaleCode } from "@/i18n";
 import { defaultConfig, type ButterflyConfig } from "@/lib/butterfly/config";
 import { CircleCanvas } from "@/components/studio/circle-canvas";
@@ -54,15 +55,25 @@ export default function Home() {
           <h1 className="pop-heading truncate text-2xl leading-none text-[#69170D]">{t("app.title")}</h1>
           <p className="mt-1 truncate text-[11px] font-bold uppercase tracking-wide text-[#8A2418]">{t("app.tagline")}</p>
         </div>
-        <button
-          onClick={() => void toggleLocale()}
-          className="flex shrink-0 items-center gap-1 rounded-[6px] border-[3px] border-[#69170D] bg-[#A3DBEE] px-2 py-1 text-xs font-black text-[#69170D]"
-          data-el="lang-toggle"
-          aria-label={t("language.label")}
-        >
-          <Languages className="h-3.5 w-3.5" />
-          {(normalizeLocale(i18n.resolvedLanguage || i18n.language) ?? "en-US") === "zh-CN" ? "中" : "EN"}
-        </button>
+        <div className="flex shrink-0 items-center gap-1.5">
+          <Link
+            href="/play"
+            className="flex items-center gap-1 rounded-[6px] border-[3px] border-[#69170D] bg-[#E82020] px-2.5 py-1 text-xs font-black text-[#FFF7D8]"
+            data-el="to-game"
+          >
+            <Gamepad2 className="h-3.5 w-3.5" />
+            {t("game.play")}
+          </Link>
+          <button
+            onClick={() => void toggleLocale()}
+            className="flex items-center gap-1 rounded-[6px] border-[3px] border-[#69170D] bg-[#A3DBEE] px-2 py-1 text-xs font-black text-[#69170D]"
+            data-el="lang-toggle"
+            aria-label={t("language.label")}
+          >
+            <Languages className="h-3.5 w-3.5" />
+            {(normalizeLocale(i18n.resolvedLanguage || i18n.language) ?? "en-US") === "zh-CN" ? "中" : "EN"}
+          </button>
+        </div>
       </header>
 
       {/* Stage: circle-limit canvas */}
