@@ -40,7 +40,7 @@ export const Butterfly = memo(function Butterfly({
       <path
         d={path}
         fill={`url(#${back ? backGradientId : gradientId})`}
-        stroke={config.tokensStroke ?? "#69170D"}
+        stroke="#69170D"
         strokeWidth={strokeW}
         strokeLinejoin="round"
       />
@@ -91,10 +91,3 @@ export const Butterfly = memo(function Butterfly({
     </g>
   );
 });
-
-// augment the config type inline usage (stroke color token override optional)
-declare module "@/lib/butterfly/config" {
-  interface ButterflyConfig {
-    tokensStroke?: string;
-  }
-}
