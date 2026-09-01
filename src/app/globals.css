@@ -66,30 +66,38 @@ body {
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  /* Pop Checker Butterfly Atlas palette */
+  --pop-yellow: #F7DE07;
+  --pop-blue: #A3DBEE;
+  --pop-red: #E82020;
+  --pop-maroon: #69170D;
+  --pop-brick: #972311;
+  --pop-cream: #FFF7D8;
+
+  --background: #F7DE07;
+  --foreground: #69170D;
+  --card: #FFF7D8;
+  --card-foreground: #69170D;
+  --popover: #FFF7D8;
+  --popover-foreground: #69170D;
+  --primary: #69170D;
+  --primary-foreground: #F7DE07;
+  --secondary: #A3DBEE;
+  --secondary-foreground: #69170D;
+  --muted: #FFF7D8;
+  --muted-foreground: #8A2418;
+  --accent: #972311;
+  --accent-foreground: #FFF7D8;
+  --destructive: #E82020;
+  --border: #69170D;
+  --input: #69170D;
+  --ring: #972311;
+  --chart-1: #F7DE07;
+  --chart-2: #A3DBEE;
+  --chart-3: #E82020;
+  --chart-4: #972311;
+  --chart-5: #69170D;
+  --radius: 0.375rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
