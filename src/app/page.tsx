@@ -19,10 +19,7 @@ export default function Home() {
 
   // Wing-flap / drift animation loop, top-most layer.
   useEffect(() => {
-    if (!config.animation.enabled) {
-      setFlap(0);
-      return;
-    }
+    if (!config.animation.enabled) return;
     let mounted = true;
     const loop = (ts: number) => {
       if (!mounted) return;
