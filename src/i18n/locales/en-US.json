@@ -81,5 +81,23 @@
     "speed": "Flight speed",
     "opacity": "Overall opacity",
     "loop": "Loop duration"
+  },
+  "game": {
+    "play": "Play",
+    "title": "Symmetry Smith",
+    "tagline": "Rotate to complete, sound the chord",
+    "studio": "Studio",
+    "score": "Score",
+    "combo": "Combo",
+    "time": "Time",
+    "start": "Start game",
+    "retry": "Play again",
+    "flip": "Mirror flip",
+    "mute": "Mute",
+    "hint": "Drag the disc to rotate, align the ghost",
+    "howto": "A butterfly in the disc has drifted out of symmetry. Drag to rotate it — flip if needed — and align it with the faint ghost outline to snap it into place and sound a harmonious chord. More precise, faster, higher combos score more!",
+    "over": "Time's up!",
+    "solved": "Solved {{n}}",
+    "bestCombo": "Best combo ×{{n}}"
   }
 }
