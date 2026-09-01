@@ -130,7 +130,7 @@ export function defaultConfig(): ButterflyConfig {
     boundary: { curvatureRadius: 1 },
     recursion: { depth: 3 },
     rotation: { angle: 0 },
-    butterfly: { count: 6, size: 0.22, scale: 1 },
+    butterfly: { count: 6, size: 0.26, scale: 1 },
     wing: {
       angle: 18,
       scale: 1,
