@@ -1,74 +1,111 @@
-// EAZO_TEMPLATE_PLACEHOLDER_PAGE
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { UserBadge } from "@/components/user-profile/user-badge";
-import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { Languages, RotateCcw, Play, Pause } from "lucide-react";
+import { changeLocale, getLocalePreference, normalizeLocale, type LocaleCode } from "@/i18n";
+import type { ButterflyConfig } from "@/lib/butterfly/config";
+import { defaultConfig, COLOR_SCHEMES } from "@/lib/butterfly/config";
+import { CircleCanvas } from "@/components/studio/circle-canvas";
+import { ControlPanel } from "@/components/studio/control-panel";
 
-const STEP_KEYS = [
-  "readDocs",
-  "replacePage",
-  "firstFeature",
-  "translations",
-] as const;
+type Tab = "compose" | "wing" | "color" | "detail";
 
 export default function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [config, setConfig] = useState<ButterflyConfig>(() => defaultConfig());
+  const [tab, setTab] = useState<Tab>("compose");
+  const [flap, setFlap] = useState(0);
+  const raf = useRef<number | null>(null);
+
+  // Wing-flap / drift animation loop, top-most layer.
+  useEffect(() => {
+    if (!config.animation.enabled) {
+      setFlap(0);
+      return;
+    }
+    let mounted = true;
+    const loop = (ts: number) => {
+      if (!mounted) return;
+      const cycle = config.animation.loopDuration / config.animation.speed;
+      const phase = (ts % cycle) / cycle;
+      setFlap((Math.sin(phase * Math.PI * 2) + 1) / 2);
+      raf.current = requestAnimationFrame(loop);
+    };
+    raf.current = requestAnimationFrame(loop);
+    return () => {
+      mounted = false;
+      if (raf.current) cancelAnimationFrame(raf.current);
+    };
+  }, [config.animation.enabled, config.animation.loopDuration, config.animation.speed]);
+
+  const toggleLocale = useCallback(async () => {
+    const active = normalizeLocale(i18n.resolvedLanguage || i18n.language) ?? "en-US";
+    await changeLocale((active === "zh-CN" ? "en-US" : "zh-CN") as LocaleCode);
+  }, [i18n]);
+
+  useEffect(() => { void getLocalePreference(); }, []);
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,theme(colors.orange.500/0.18),transparent_50%)]"
-      />
-
-      <header className="absolute right-4 top-4 z-10 flex items-center gap-2">
-        <LanguageSwitcher />
-        <UserBadge />
+    <div className="pop-checker flex min-h-screen w-full flex-col" data-el="studio-root">
+      {/* Header */}
+      <header
+        className="flex items-center justify-between gap-2 border-b-[4px] border-[#69170D] bg-[#F7DE07] px-4"
+        style={{ paddingTop: "max(12px, env(safe-area-inset-top, 0px))", paddingBottom: "12px" }}
+        data-el="studio-header"
+      >
+        <div className="min-w-0">
+          <h1 className="pop-heading truncate text-lg leading-none text-[#69170D]">{t("app.title")}</h1>
+          <p className="mt-0.5 truncate text-[10px] font-bold uppercase tracking-wide text-[#8A2418]">{t("app.tagline")}</p>
+        </div>
+        <button
+          onClick={() => void toggleLocale()}
+          className="flex shrink-0 items-center gap-1 rounded-[6px] border-[3px] border-[#69170D] bg-[#A3DBEE] px-2 py-1 text-xs font-black text-[#69170D]"
+          data-el="lang-toggle"
+          aria-label={t("language.label")}
+        >
+          <Languages className="h-3.5 w-3.5" />
+          {(normalizeLocale(i18n.resolvedLanguage || i18n.language) ?? "en-US") === "zh-CN" ? "中" : "EN"}
+        </button>
       </header>
 
-      <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl flex-col justify-center gap-10 px-6 py-20 md:px-10">
-        <section className="space-y-4 text-center md:text-left">
-          <span className="inline-flex rounded-full border border-orange-500/20 bg-orange-500/10 px-3 py-1 text-xs font-medium text-orange-600 dark:text-orange-300">
-            {t("starter.badge")}
-          </span>
-          <h1 className="text-4xl font-semibold tracking-tight text-balance md:text-5xl">
-            {t("starter.title")}
-          </h1>
-          <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
-            {t("starter.subtitle")}
-          </p>
-        </section>
-
-        <section className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {STEP_KEYS.map((key) => (
-            <article
-              key={key}
-              className="rounded-2xl border bg-card/60 p-5 shadow-sm backdrop-blur"
+      {/* Stage: circle-limit canvas */}
+      <div className="relative flex items-center justify-center p-3" data-el="stage">
+        <div className="relative aspect-square w-full max-w-[420px] rounded-[16px] border-[4px] border-[#69170D] bg-[#FFF7D8] shadow-[0_8px_0_rgba(105,23,13,0.25)]">
+          <div className="checker-pulse absolute inset-0 overflow-hidden rounded-[12px]">
+            <CircleCanvas config={config} flap={flap} />
+          </div>
+          {/* badge param summary */}
+          <div className="pointer-events-none absolute right-2 top-2 rounded-[6px] border-[3px] border-[#69170D] bg-[#E82020] px-2 py-1 text-right font-mono text-[10px] font-bold leading-tight text-[#FFF7D8]">
+            <div>{`{${config.symmetry.p},${config.symmetry.q}}`}</div>
+            <div>×{config.butterfly.count}</div>
+          </div>
+          {/* animation + reset controls */}
+          <div className="absolute bottom-2 left-2 flex gap-1.5">
+            <button
+              onClick={() => setConfig((c) => ({ ...c, animation: { ...c.animation, enabled: !c.animation.enabled } }))}
+              className="flex h-8 w-8 items-center justify-center rounded-[6px] border-[3px] border-[#69170D] bg-[#A3DBEE] text-[#69170D]"
+              data-el="anim-toggle"
+              aria-label={t("detail.animate")}
             >
-              <h2 className="text-base font-medium">
-                {t(`starter.steps.${key}.title`)}
-              </h2>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                {t(`starter.steps.${key}.desc`)}
-              </p>
-              <code className="mt-4 inline-block rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground">
-                {t(`starter.steps.${key}.code`)}
-              </code>
-            </article>
-          ))}
-        </section>
+              {config.animation.enabled ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+            </button>
+            <button
+              onClick={() => setConfig(() => defaultConfig())}
+              className="flex h-8 w-8 items-center justify-center rounded-[6px] border-[3px] border-[#69170D] bg-[#FFF7D8] text-[#69170D]"
+              data-el="reset"
+              aria-label={t("app.reset")}
+            >
+              <RotateCcw className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      </div>
 
-        <section className="rounded-2xl border bg-card/50 p-5 md:p-6">
-          <h3 className="text-sm font-medium">{t("starter.nextCommand.title")}</h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {t("starter.nextCommand.desc")}
-          </p>
-          <pre className="mt-4 overflow-x-auto rounded-lg bg-muted p-3 text-sm">
-            <code>{t("starter.nextCommand.command")}</code>
-          </pre>
-        </section>
-      </main>
+      {/* Control panel */}
+      <div className="min-h-0 flex-1 border-t-[4px] border-[#69170D] bg-[#F7DE07] px-4 pt-3" style={{ paddingBottom: "max(16px, env(safe-area-inset-bottom, 0px))" }}>
+        <ControlPanel config={config} setConfig={setConfig} tab={tab} setTab={setTab} />
+      </div>
     </div>
   );
 }
