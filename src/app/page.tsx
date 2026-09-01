@@ -69,7 +69,7 @@ export default function Home() {
       <div className="relative flex items-center justify-center p-2" data-el="stage">
         <div className="relative aspect-square w-full max-w-[560px] rounded-[18px] border-[5px] border-[#69170D] bg-[#FFF7D8] shadow-[0_10px_0_rgba(105,23,13,0.25)]">
           <div className="checker-pulse absolute inset-0 overflow-hidden rounded-[12px]">
-            <CircleCanvas config={config} flap={flap} />
+            <CircleCanvas config={config} flap={config.animation.enabled ? flap : 0} />
           </div>
           {/* badge param summary */}
           <div className="pointer-events-none absolute right-2 top-2 rounded-[6px] border-[3px] border-[#69170D] bg-[#E82020] px-2 py-1 text-right font-mono text-[10px] font-bold leading-tight text-[#FFF7D8]">
