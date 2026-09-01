@@ -4,8 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Languages, RotateCcw, Play, Pause } from "lucide-react";
 import { changeLocale, getLocalePreference, normalizeLocale, type LocaleCode } from "@/i18n";
-import type { ButterflyConfig } from "@/lib/butterfly/config";
-import { defaultConfig, COLOR_SCHEMES } from "@/lib/butterfly/config";
+import { defaultConfig, type ButterflyConfig } from "@/lib/butterfly/config";
 import { CircleCanvas } from "@/components/studio/circle-canvas";
 import { ControlPanel } from "@/components/studio/control-panel";
 
