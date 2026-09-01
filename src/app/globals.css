@@ -174,3 +174,33 @@ body {
   50% { opacity: 0.72; }
 }
 .checker-pulse { animation: checker-pulse 6s ease-in-out infinite; }
+
+/* Pop color-block range slider */
+.pop-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--pop-blue), var(--pop-red));
+  border: 2px solid #69170D;
+  outline: none;
+}
+.pop-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: #F7DE07;
+  border: 3px solid #69170D;
+  cursor: pointer;
+  box-shadow: 0 2px 0 rgba(105,23,13,0.35);
+}
+.pop-range::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: #F7DE07;
+  border: 3px solid #69170D;
+  cursor: pointer;
+}
