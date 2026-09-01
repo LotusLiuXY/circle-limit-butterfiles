@@ -153,3 +153,24 @@ body {
     @apply font-sans;
   }
 }
+
+/* Pop checker backdrop */
+.pop-checker {
+  background-image:
+    linear-gradient(45deg, var(--pop-blue) 25%, transparent 25%, transparent 75%, var(--pop-blue) 75%),
+    linear-gradient(45deg, var(--pop-blue) 25%, transparent 25%, transparent 75%, var(--pop-blue) 75%);
+  background-size: 56px 56px;
+  background-position: 0 0, 28px 28px;
+  background-color: var(--pop-yellow);
+}
+
+.pop-heading {
+  font-family: "Archivo Black", Impact, "Arial Black", sans-serif;
+  letter-spacing: -0.01em;
+}
+
+@keyframes checker-pulse {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.72; }
+}
+.checker-pulse { animation: checker-pulse 6s ease-in-out infinite; }
