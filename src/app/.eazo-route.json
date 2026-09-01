@@ -1,0 +1,8 @@
+{
+  "route": "",
+  "name": "工作室",
+  "nav_type": "tab",
+  "order_index": 0,
+  "icon": "sparkles",
+  "summary": "圆极限双曲蝴蝶参数化可视化工作台"
+}

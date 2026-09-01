@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Script from "next/script";
-import { Geist } from "next/font/google";
+import { Geist, Noto_Sans_SC, Archivo_Black } from "next/font/google";
 import { EazoProvider } from "@eazo/sdk/react";
 import { cn } from "@/utils/utils";
 import { Toaster } from "@/components/ui/sonner";
@@ -12,6 +12,8 @@ import { PreviewInspector } from "@/components/eazo/preview-inspector";
 import { getServerLocale } from "@/lib/i18n/server-preference";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const notoSansSC = Noto_Sans_SC({ subsets: ["latin"], variable: "--font-noto-sc", weight: ["400", "500", "700", "900"] });
+const archivoBlack = Archivo_Black({ subsets: ["latin"], variable: "--font-archivo-black", weight: "400" });
 
 const SITE_URL = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -82,7 +84,7 @@ export default async function RootLayout({
     <html
       lang={locale}
       suppressHydrationWarning
-      className={cn("h-full antialiased", "font-sans", geist.variable)}
+      className={cn("h-full antialiased", "font-sans", geist.variable, notoSansSC.variable, archivoBlack.variable)}
     >
       <body
         className="h-full flex flex-col"
