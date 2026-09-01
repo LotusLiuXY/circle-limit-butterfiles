@@ -10,7 +10,7 @@ import {
   type GameState,
 } from "@/lib/game/engine";
 import {
-  unlockAudio, setMuted, isMuted, playNote, playSuccessChord, playMiss, playFanfare, playTick,
+  unlockAudio, setMuted, isMuted, playNote, playSuccessChord, playFanfare, playTick,
 } from "@/lib/game/audio";
 
 export default function PlayPage() {
