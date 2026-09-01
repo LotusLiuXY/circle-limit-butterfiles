@@ -47,7 +47,7 @@ export default function Home() {
   useEffect(() => { void getLocalePreference(); }, []);
 
   return (
-    <div className="pop-checker flex min-h-screen w-full flex-col" data-el="studio-root">
+    <div className="pop-checker mx-auto flex min-h-screen w-full max-w-[640px] flex-col" data-el="studio-root">
       {/* Header */}
       <header
         className="flex items-center justify-between gap-2 border-b-[4px] border-[#69170D] bg-[#F7DE07] px-4"
@@ -55,8 +55,8 @@ export default function Home() {
         data-el="studio-header"
       >
         <div className="min-w-0">
-          <h1 className="pop-heading truncate text-lg leading-none text-[#69170D]">{t("app.title")}</h1>
-          <p className="mt-0.5 truncate text-[10px] font-bold uppercase tracking-wide text-[#8A2418]">{t("app.tagline")}</p>
+          <h1 className="pop-heading truncate text-2xl leading-none text-[#69170D]">{t("app.title")}</h1>
+          <p className="mt-1 truncate text-[11px] font-bold uppercase tracking-wide text-[#8A2418]">{t("app.tagline")}</p>
         </div>
         <button
           onClick={() => void toggleLocale()}
@@ -70,8 +70,8 @@ export default function Home() {
       </header>
 
       {/* Stage: circle-limit canvas */}
-      <div className="relative flex items-center justify-center p-3" data-el="stage">
-        <div className="relative aspect-square w-full max-w-[420px] rounded-[16px] border-[4px] border-[#69170D] bg-[#FFF7D8] shadow-[0_8px_0_rgba(105,23,13,0.25)]">
+      <div className="relative flex items-center justify-center p-2" data-el="stage">
+        <div className="relative aspect-square w-full max-w-[560px] rounded-[18px] border-[5px] border-[#69170D] bg-[#FFF7D8] shadow-[0_10px_0_rgba(105,23,13,0.25)]">
           <div className="checker-pulse absolute inset-0 overflow-hidden rounded-[12px]">
             <CircleCanvas config={config} flap={flap} />
           </div>
