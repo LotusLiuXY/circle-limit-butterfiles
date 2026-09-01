@@ -1,0 +1,8 @@
+{
+  "route": "play",
+  "name": "对称匠",
+  "nav_type": "tab",
+  "order_index": 1,
+  "icon": "gamepad-2",
+  "summary": "对称匠游戏：旋转补全蝴蝶对称，契合奏和弦"
+}
